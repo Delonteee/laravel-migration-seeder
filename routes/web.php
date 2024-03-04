@@ -2,6 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+//CONTROLLERS
+
+use App\Http\Controllers\Guest\PageController;    
+// usiamo il namespace che non é necessariamente un percorso fisico (presente in PageController.php) per importare la classe che ci serve
+use App\Http\Controllers\Guest\MovieController;    
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,41 +21,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    $firstName = 'Gino';
-    $lastName = 'Paoli';
+Route::get('/', [PageController::class, 'index'])->name('home');
 
-    /*
-        compact: crea un array associativo le cui chiavi sono le stringhe
-                 che mettiamo tra le parentesi, mentre i valori di tali
-                 chiavi sono i valori delle variabili con i nomi corrispondenti
-                 alle stringhe inserite
+Route::get('/chi-siamo', [PageController::class, 'about'])->name('about');
 
-        compact('firstName', 'lastName')
-         |                                     |
-         V                                     V
-
-         [
-            'firstName' => $firstName,
-            'lastName' => $lastName,
-         ]
-    */
-
-    /*
-        dd: vuol dire dump and die, cioè fai il var_dump (più carino però)
-            e poi stoppa l'esecuzione
-    */
-    // dd(compact('firstName', 'lastName'));
-
-    return view('welcome', [
-        'firstName' => $firstName,
-        'lastName' => $lastName,
-    ]);
-    // return view('welcome', compact('firstName', 'lastName'));
-});
-
-Route::get('/chi-siamo', function () {
-    return view('subpages.about');
-});
+Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
 
 // Route::get(PERCORSO CON CUI ARRIVARE ALLA PAGINA, FUNZIONE DI CALLBACK CHE MI CREA LA RISPOSTA DA DARE ALL UTENTE)

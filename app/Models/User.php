@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+// Model: User (singolare in PascalCase) -> Nome della tabella: users (minuscolo, in snake case, al plurale)
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
