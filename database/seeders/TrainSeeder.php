@@ -16,20 +16,25 @@ class TrainSeeder extends Seeder
      */
     public function run(): void
     {
-        $train = new Train();
+        Train::truncate ();           // comando che serve per pulire i dati presenti nella tabella
 
-        $train->company = 'Italo';
-        $train->departure_station = 'Milano';
-        $train->arrival_station = 'Verbania';
-        $train->departure_time = '18:00:00';
-        $train->arrival_time = '19:30:00';
-        $train->code = 'AB1234';
-        $train->carriages_num = 8;
-        $train->on_time = false;
-        $train->canceled = false;
+        for ($i = 0; $i < 10; $i++) {
+            $train = new Train();
 
-        $train->save();
+            $train->company = fake()->company();
+            $train->departure_station = fake()->city();
+            $train->arrival_station = fake()->city();
+            $train->departure_time = fake()->time();
+            $train->arrival_time = fake()->time();
+            $train->code = 'ABC'.rand(1, 9999) ;
+            $train->carriages_num = rand(2, 10);
+            $train->on_time = fake()->boolean(70);
+            $train->canceled = fake()->boolean(20);
 
-        //    dd($train);
+            $train->save();
+        }
+        
+
+        // dd($train);
     }
 }
